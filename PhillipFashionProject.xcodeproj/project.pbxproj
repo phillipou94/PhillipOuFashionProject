@@ -1,0 +1,435 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4D941B7519FC35F2007FCB72 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D941B7419FC35F2007FCB72 /* main.m */; };
+		4D941B7819FC35F2007FCB72 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D941B7719FC35F2007FCB72 /* AppDelegate.m */; };
+		4D941B7B19FC35F2007FCB72 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D941B7A19FC35F2007FCB72 /* FirstViewController.m */; };
+		4D941B7E19FC35F2007FCB72 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D941B7D19FC35F2007FCB72 /* SecondViewController.m */; };
+		4D941B8119FC35F2007FCB72 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D941B7F19FC35F2007FCB72 /* Main.storyboard */; };
+		4D941B8319FC35F2007FCB72 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D941B8219FC35F2007FCB72 /* Images.xcassets */; };
+		4D941B8619FC35F2007FCB72 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D941B8419FC35F2007FCB72 /* LaunchScreen.xib */; };
+		4D941B9219FC35F2007FCB72 /* PhillipFashionProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D941B9119FC35F2007FCB72 /* PhillipFashionProjectTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4D941B8C19FC35F2007FCB72 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D941B6719FC35F2007FCB72 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D941B6E19FC35F2007FCB72;
+			remoteInfo = PhillipFashionProject;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4D941B6F19FC35F2007FCB72 /* PhillipFashionProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhillipFashionProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D941B7319FC35F2007FCB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D941B7419FC35F2007FCB72 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4D941B7619FC35F2007FCB72 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4D941B7719FC35F2007FCB72 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4D941B7919FC35F2007FCB72 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		4D941B7A19FC35F2007FCB72 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		4D941B7C19FC35F2007FCB72 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		4D941B7D19FC35F2007FCB72 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		4D941B8019FC35F2007FCB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4D941B8219FC35F2007FCB72 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		4D941B8519FC35F2007FCB72 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		4D941B8B19FC35F2007FCB72 /* PhillipFashionProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhillipFashionProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D941B9019FC35F2007FCB72 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D941B9119FC35F2007FCB72 /* PhillipFashionProjectTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhillipFashionProjectTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4D941B6C19FC35F2007FCB72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D941B8819FC35F2007FCB72 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4D941B6619FC35F2007FCB72 = {
+			isa = PBXGroup;
+			children = (
+				4D941B7119FC35F2007FCB72 /* PhillipFashionProject */,
+				4D941B8E19FC35F2007FCB72 /* PhillipFashionProjectTests */,
+				4D941B7019FC35F2007FCB72 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4D941B7019FC35F2007FCB72 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4D941B6F19FC35F2007FCB72 /* PhillipFashionProject.app */,
+				4D941B8B19FC35F2007FCB72 /* PhillipFashionProjectTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4D941B7119FC35F2007FCB72 /* PhillipFashionProject */ = {
+			isa = PBXGroup;
+			children = (
+				4D941B7619FC35F2007FCB72 /* AppDelegate.h */,
+				4D941B7719FC35F2007FCB72 /* AppDelegate.m */,
+				4D941B7919FC35F2007FCB72 /* FirstViewController.h */,
+				4D941B7A19FC35F2007FCB72 /* FirstViewController.m */,
+				4D941B7C19FC35F2007FCB72 /* SecondViewController.h */,
+				4D941B7D19FC35F2007FCB72 /* SecondViewController.m */,
+				4D941B7F19FC35F2007FCB72 /* Main.storyboard */,
+				4D941B8219FC35F2007FCB72 /* Images.xcassets */,
+				4D941B8419FC35F2007FCB72 /* LaunchScreen.xib */,
+				4D941B7219FC35F2007FCB72 /* Supporting Files */,
+			);
+			path = PhillipFashionProject;
+			sourceTree = "<group>";
+		};
+		4D941B7219FC35F2007FCB72 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D941B7319FC35F2007FCB72 /* Info.plist */,
+				4D941B7419FC35F2007FCB72 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4D941B8E19FC35F2007FCB72 /* PhillipFashionProjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				4D941B9119FC35F2007FCB72 /* PhillipFashionProjectTests.m */,
+				4D941B8F19FC35F2007FCB72 /* Supporting Files */,
+			);
+			path = PhillipFashionProjectTests;
+			sourceTree = "<group>";
+		};
+		4D941B8F19FC35F2007FCB72 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D941B9019FC35F2007FCB72 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4D941B6E19FC35F2007FCB72 /* PhillipFashionProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D941B9519FC35F2007FCB72 /* Build configuration list for PBXNativeTarget "PhillipFashionProject" */;
+			buildPhases = (
+				4D941B6B19FC35F2007FCB72 /* Sources */,
+				4D941B6C19FC35F2007FCB72 /* Frameworks */,
+				4D941B6D19FC35F2007FCB72 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PhillipFashionProject;
+			productName = PhillipFashionProject;
+			productReference = 4D941B6F19FC35F2007FCB72 /* PhillipFashionProject.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4D941B8A19FC35F2007FCB72 /* PhillipFashionProjectTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D941B9819FC35F2007FCB72 /* Build configuration list for PBXNativeTarget "PhillipFashionProjectTests" */;
+			buildPhases = (
+				4D941B8719FC35F2007FCB72 /* Sources */,
+				4D941B8819FC35F2007FCB72 /* Frameworks */,
+				4D941B8919FC35F2007FCB72 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4D941B8D19FC35F2007FCB72 /* PBXTargetDependency */,
+			);
+			name = PhillipFashionProjectTests;
+			productName = PhillipFashionProjectTests;
+			productReference = 4D941B8B19FC35F2007FCB72 /* PhillipFashionProjectTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4D941B6719FC35F2007FCB72 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Phillip Ou";
+				TargetAttributes = {
+					4D941B6E19FC35F2007FCB72 = {
+						CreatedOnToolsVersion = 6.0.1;
+					};
+					4D941B8A19FC35F2007FCB72 = {
+						CreatedOnToolsVersion = 6.0.1;
+						TestTargetID = 4D941B6E19FC35F2007FCB72;
+					};
+				};
+			};
+			buildConfigurationList = 4D941B6A19FC35F2007FCB72 /* Build configuration list for PBXProject "PhillipFashionProject" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4D941B6619FC35F2007FCB72;
+			productRefGroup = 4D941B7019FC35F2007FCB72 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4D941B6E19FC35F2007FCB72 /* PhillipFashionProject */,
+				4D941B8A19FC35F2007FCB72 /* PhillipFashionProjectTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4D941B6D19FC35F2007FCB72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D941B8119FC35F2007FCB72 /* Main.storyboard in Resources */,
+				4D941B8619FC35F2007FCB72 /* LaunchScreen.xib in Resources */,
+				4D941B8319FC35F2007FCB72 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D941B8919FC35F2007FCB72 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4D941B6B19FC35F2007FCB72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D941B7E19FC35F2007FCB72 /* SecondViewController.m in Sources */,
+				4D941B7819FC35F2007FCB72 /* AppDelegate.m in Sources */,
+				4D941B7B19FC35F2007FCB72 /* FirstViewController.m in Sources */,
+				4D941B7519FC35F2007FCB72 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D941B8719FC35F2007FCB72 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D941B9219FC35F2007FCB72 /* PhillipFashionProjectTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4D941B8D19FC35F2007FCB72 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D941B6E19FC35F2007FCB72 /* PhillipFashionProject */;
+			targetProxy = 4D941B8C19FC35F2007FCB72 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4D941B7F19FC35F2007FCB72 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D941B8019FC35F2007FCB72 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4D941B8419FC35F2007FCB72 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4D941B8519FC35F2007FCB72 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4D941B9319FC35F2007FCB72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4D941B9419FC35F2007FCB72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4D941B9619FC35F2007FCB72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PhillipFashionProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4D941B9719FC35F2007FCB72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PhillipFashionProject/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4D941B9919FC35F2007FCB72 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PhillipFashionProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhillipFashionProject.app/PhillipFashionProject";
+			};
+			name = Debug;
+		};
+		4D941B9A19FC35F2007FCB72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PhillipFashionProjectTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PhillipFashionProject.app/PhillipFashionProject";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4D941B6A19FC35F2007FCB72 /* Build configuration list for PBXProject "PhillipFashionProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D941B9319FC35F2007FCB72 /* Debug */,
+				4D941B9419FC35F2007FCB72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4D941B9519FC35F2007FCB72 /* Build configuration list for PBXNativeTarget "PhillipFashionProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D941B9619FC35F2007FCB72 /* Debug */,
+				4D941B9719FC35F2007FCB72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4D941B9819FC35F2007FCB72 /* Build configuration list for PBXNativeTarget "PhillipFashionProjectTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D941B9919FC35F2007FCB72 /* Debug */,
+				4D941B9A19FC35F2007FCB72 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4D941B6719FC35F2007FCB72 /* Project object */;
+}
