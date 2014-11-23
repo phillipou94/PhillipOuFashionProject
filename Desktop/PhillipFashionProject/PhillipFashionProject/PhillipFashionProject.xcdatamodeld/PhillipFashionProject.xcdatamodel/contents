@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6244" systemVersion="14A389" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="CoreDataUser" syncable="YES">
+        <attribute name="favoriteClothing" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="followerDictionary" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="followinDictionary" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="points" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="profilePictures" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="recommendedList" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="shoppingCart" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="CoreDataUser" positionX="-63" positionY="-18" width="128" height="180"/>
+    </elements>
+</model>

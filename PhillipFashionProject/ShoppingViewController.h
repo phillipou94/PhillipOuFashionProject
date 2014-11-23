@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DropDownListView.h"
+#import "ShowItemViewController.h"
+#import "FilterViewController.h"
 
-@interface ShoppingViewController : UICollectionViewController
+
+@interface ShoppingViewController : UICollectionViewController<startSearchDelegate,kDropDownListViewDelegate,removeBlurDelegate,UISearchBarDelegate, updateSearchDelegate>{
+    
+    DropDownListView * Dropobj;
+}
+
+
+
 
 @end

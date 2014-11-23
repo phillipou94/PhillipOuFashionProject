@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.PhillipOu.FashionProject</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -18,8 +18,27 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb389218077899965</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>389218077899965</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>CaviarDreams.ttf</string>
+		<string>Caviar_Dreams_Bold.ttf</string>
+		<string>CaviarDreams_Italic.ttf</string>
+	</array>
+	<key>FacebookDisplayName</key>
+	<string>Phillip Ou Fashion Project</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
