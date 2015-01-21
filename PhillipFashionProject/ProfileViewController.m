@@ -33,6 +33,7 @@
     [super viewDidLoad];
     CGRect bounds;
     bounds = [[self view] bounds];
+    
     PFQuery *query = [PFQuery queryWithClassName:@"ProfilePictures"];
     [query whereKey:@"userID" containsString:self.currentUser.userID];
     PFObject *photoObject = [query findObjects][0];
@@ -42,7 +43,6 @@
         
         
     }];
-    
     
     StretchyHeaderCollectionViewLayout *stretchyLayout;
     stretchyLayout = [[StretchyHeaderCollectionViewLayout alloc] init];
@@ -57,19 +57,12 @@
     [collectionView setShowsVerticalScrollIndicator:NO];
     [collectionView setDataSource:self];
     [collectionView setDelegate:self];
-    //collectionView.backgroundColor =
     [[self view] addSubview:self.collectionView];
-    
-    
     [collectionView registerClass:[UICollectionViewCell class]
        forCellWithReuseIdentifier:@"Cell"];
-    
     [collectionView registerClass:[UICollectionReusableView class]
        forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
               withReuseIdentifier:@"Header"];
-    
-   
-    
     
 }
 
@@ -92,8 +85,7 @@
         cameraButton.imageView.contentMode=UIViewContentModeScaleAspectFill;
         //cameraButton.imageView.image = [UIImage imageNamed:@"camera-grey"];
         
-        
-       self.profileImageView = [[UIImageView alloc] initWithFrame:bounds];
+        self.profileImageView = [[UIImageView alloc] initWithFrame:bounds];
         [self.profileImageView setContentMode:UIViewContentModeScaleAspectFill];
         [self.profileImageView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
         self.profileImageView.frame = header.frame;
@@ -102,7 +94,6 @@
         
         [header addSubview:self.profileImageView];
         [self.profileImageView addSubview:cameraButton];
-        
         [header addSubview:cameraButton];
     }
     
@@ -110,6 +101,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
     self.collectionView.delegate=self;
     CoreDataSingleton *coreRequest = [CoreDataSingleton sharedManager];
@@ -124,6 +116,7 @@
         [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"Cell"];
         collectionView.delegate = self;
         collectionView.dataSource = self;
+        
         //this will set the image when loading is finished
         dispatch_async(dispatch_get_main_queue(), ^{
              [collectionView reloadData];
@@ -143,9 +136,12 @@
 
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *selectedItem = [self.arrayOfItems objectAtIndex:indexPath.row];
+    
     ShowItemViewController *newViewController = [[ShowItemViewController alloc] initWithNibName:@"ShowItemViewController" bundle:nil];
     newViewController.item = selectedItem;
     newViewController.imageURL = [selectedItem[@"images"][3] objectForKey:@"url"];
+    newViewController.index=indexPath.row;
+    
     UIGraphicsBeginImageContext(self.view.bounds.size);
     [self.collectionView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -162,26 +158,30 @@
     blurredView.image = endImage;
     newViewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     newViewController.delegate=self;
+    
     [self presentViewController:newViewController animated:YES completion:nil];
     [self.view addSubview:blurredView];
 
 }
 -(void)removeBlur{
-      [@[blurredView] makeObjectsPerformSelector: @selector(removeFromSuperview)];
+    
+    [@[blurredView] makeObjectsPerformSelector: @selector(removeFromSuperview)];
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //this will start the image loading in background
     dispatch_async(concurrentQueue, ^{
+        
         NSMutableDictionary *item = self.arrayOfItems[indexPath.row];
         NSString *imageString=[item[@"images"][3] objectForKey:@"url"];
         NSURL *imageURL = [NSURL URLWithString:imageString];
         NSData *data = [NSData dataWithContentsOfURL:imageURL];
         UIImage *itemImage = [UIImage imageWithData: data];
-        
-        
         //this will set the image when loading is finished
         dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -203,27 +203,27 @@
 
 
 
-- (void)showCamera{
-    NSLog(@"show camera");
+- (void)showCamera {
+    
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
 
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType
 {
-    if (self.profileImageView.isAnimating)
-    {
+    if (self.profileImageView.isAnimating) {
+        
         [self.profileImageView stopAnimating];
+        
     }
-    
     
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     
     //make sure it has camera
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;}
-    else{ //but send them to photo library if they don't have a camera.
+        imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    } else{ //but send them to photo library if they don't have a camera.
         
         imagePickerController.sourceType = sourceType;
     }
@@ -244,13 +244,11 @@
     self.imagePicker = imagePickerController;
     [self presentViewController:self.imagePicker animated:YES completion:nil];
     self.tabBarController.tabBar.hidden=YES;
-   // [self presentModalViewController:self.imagePicker animated:YES completion:nil];
+   
 }
 
 //once photo is finished being taken
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
-    
     
     UIImage *chosenImage = [info valueForKey:UIImagePickerControllerOriginalImage];
     self.profileImageView.image = chosenImage;
@@ -258,10 +256,8 @@
     ServerRequest *request = [ServerRequest sharedManager];
     [request setProfilePicture:chosenImage ForServerID:self.currentUser.serverID andUserID:self.currentUser.userID];
     
-    //handling landscape mode
-    
     UIImageOrientation orientation = self.profileImageView.image.imageOrientation;
-    if(orientation ==0 || orientation ==1){
+    if(orientation ==0 || orientation ==1) {
         self.profileImageView.contentMode = UIViewContentModeScaleAspectFit;
         
     }

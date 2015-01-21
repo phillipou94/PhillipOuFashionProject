@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="brandLabel" destination="Bsp-UW-qce" id="c7d-RZ-jVL"/>
                 <outlet property="buyButton" destination="1kA-UX-ixN" id="hVq-1x-spU"/>
+                <outlet property="heartButton" destination="NqN-c7-JlN" id="AkV-mu-Z4W"/>
                 <outlet property="imageView" destination="sqV-eT-mt7" id="y85-ie-tWx"/>
                 <outlet property="likeButton" destination="zXB-VM-tR7" id="0Oy-Zs-e0M"/>
                 <outlet property="priceLabel" destination="ajA-bZ-bdK" id="ynz-Nt-lfD"/>
@@ -70,6 +71,9 @@
                                     <state key="normal" title="Like">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="likePressed:" destination="-1" eventType="touchUpInside" id="ue3-8C-d8Y"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g8B-29-7SZ">
                                     <rect key="frame" x="461" y="18" width="60" height="22"/>
@@ -81,6 +85,9 @@
                                     <state key="normal" title="Refer">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
+                                    <connections>
+                                        <action selector="referPressed:" destination="-1" eventType="touchUpInside" id="HIv-Br-sFJ"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1kA-UX-ixN">
                                     <rect key="frame" x="28" y="18" width="60" height="20"/>
@@ -117,12 +124,20 @@
                                 <constraint firstAttribute="width" constant="203" id="zwb-Re-JaF"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.96078431369999995" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.17254901959999999" green="0.24313725489999999" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NqN-c7-JlN">
+                            <rect key="frame" x="484" y="44" width="32" height="32"/>
+                            <state key="normal" backgroundImage="heart-fullb copy.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="NqN-c7-JlN" firstAttribute="top" secondItem="Bsp-UW-qce" secondAttribute="bottom" constant="8" symbolic="YES" id="5G6-kR-TnL"/>
+                        <constraint firstAttribute="trailing" secondItem="NqN-c7-JlN" secondAttribute="trailing" constant="28" id="8FO-Fu-xwm"/>
                         <constraint firstItem="Gse-MY-Z2S" firstAttribute="trailing" secondItem="sqV-eT-mt7" secondAttribute="trailing" constant="23" id="9bf-fV-acn"/>
                         <constraint firstItem="Acl-79-655" firstAttribute="leading" secondItem="WlA-TZ-cxE" secondAttribute="leadingMargin" id="CDd-gQ-CFx"/>
                         <constraint firstItem="ajA-bZ-bdK" firstAttribute="leading" secondItem="sqV-eT-mt7" secondAttribute="leading" constant="-3" id="Fqi-Is-es0"/>
@@ -161,4 +176,7 @@
             <point key="canvasLocation" x="258" y="145"/>
         </view>
     </objects>
+    <resources>
+        <image name="heart-fullb copy.png" width="32" height="32"/>
+    </resources>
 </document>

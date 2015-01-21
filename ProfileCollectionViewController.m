@@ -32,23 +32,34 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self getCurrentUser];
     isEditting=NO;
+    
     CGRect bounds;
     bounds = [[self view] bounds];
     
-    
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
-                                               initWithTarget:self action:@selector(editPressed:)];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(editPressed:)];
     longPress.minimumPressDuration = 1.0; //seconds
     longPress.delegate = self;
+    
     [self.collectionView addGestureRecognizer:longPress];
     
-    
-  
+
 }
 
+- (void)getCurrentUser {
+    
+    CoreDataSingleton *coreData = [CoreDataSingleton sharedManager];
+    NSString *userID=[coreData getCurrentUserID];
+    
+    ServerRequest *serverRequest = [ServerRequest sharedManager];
+    self.currentUser=[serverRequest getUserInfoFromServer:userID];
+    
+}
 
--(void)viewWillDisappear:(BOOL)animated{
+- (void)viewWillDisappear:(BOOL)animated {
+    
     [super viewWillDisappear:animated];
     isEditting=NO;
     [self.collectionView reloadData];
@@ -57,24 +68,25 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
+    
     self.collectionView.delegate=self;
     self.collectionView.dataSource=self;
+    
     CoreDataSingleton *coreRequest = [CoreDataSingleton sharedManager];
+    
     PFQuery *query = [PFQuery queryWithClassName:@"ProfilePictures"];
-    [query whereKey:@"userID" containsString:self.currentUser.userID];
-    [query addDescendingOrder:@"createdAt"];
-    if([[query findObjects]count]!=0){
-        PFObject *photoObject = [query findObjects][0];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            self.profileImageView.image = [[UIImage alloc] initWithData: [[photoObject objectForKey:@"file"] getData]];
-        }];
-    }
+    [query getObjectInBackgroundWithId:self.currentUser.profilePictureID block:^(PFObject * photoObject, NSError *error) {
+       self.profileImageView.image = [[UIImage alloc] initWithData: [[photoObject objectForKey:@"file"] getData]];
+    }];
+    
     NSString *userID=[coreRequest getCurrentUserID];
+    
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{
         ServerRequest *serverRequest = [ServerRequest sharedManager];
         self.currentUser=[serverRequest getUserInfoFromServer:userID];
         self.arrayOfItems=[serverRequest getItemsFor:userID];
+        self.arrayOfItems = [[[self.arrayOfItems reverseObjectEnumerator]allObjects] mutableCopy];
         //this will set the image when loading is finished
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView reloadData];
@@ -83,10 +95,12 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     NSDictionary *selectedItem = [self.arrayOfItems objectAtIndex:indexPath.row];
     ShowItemViewController *newViewController = [[ShowItemViewController alloc] initWithNibName:@"ShowItemViewController" bundle:nil];
     newViewController.item = selectedItem;
     newViewController.imageURL = [selectedItem[@"images"][3] objectForKey:@"url"];
+    
     UIGraphicsBeginImageContext(self.view.bounds.size);
     [self.collectionView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -138,6 +152,7 @@ static NSString * const reuseIdentifier = @"Cell";
     return [self.arrayOfItems count];
     
 }
+
 #define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -145,7 +160,8 @@ static NSString * const reuseIdentifier = @"Cell";
     UIButton *deleteButton = (UIButton*)[cell viewWithTag:-10];
     [deleteButton addTarget:self action:@selector(deleteButtonClicked:withEvent:) forControlEvents:UIControlEventTouchUpInside];
     deleteButton.hidden=YES;
-    if(isEditting){
+    
+    if (isEditting) {
         deleteButton.hidden=NO;
         CGAffineTransform leftWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(-0.7));
         CGAffineTransform rightWobble = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.7));
@@ -158,6 +174,7 @@ static NSString * const reuseIdentifier = @"Cell";
         cell.transform = rightWobble; // end here & auto-reverse
         [UIView commitAnimations];
     }
+    
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{
         NSMutableDictionary *item = self.arrayOfItems[indexPath.row];
@@ -174,17 +191,15 @@ static NSString * const reuseIdentifier = @"Cell";
             imageView.contentMode=UIViewContentModeScaleAspectFit;
         });
     });
-    
  
     return cell;
 }
 
-- (NSIndexPath*)indexPathForEvent:(id)event
-{
+- (NSIndexPath*)indexPathForEvent:(id)event {
+    
     NSSet *touches = [event allTouches];
     UITouch *touch = [touches anyObject];
     CGPoint currentTouchPosition = [touch locationInView:self.collectionView];
-    
     return [self.collectionView indexPathForItemAtPoint:currentTouchPosition];
     
 }
@@ -209,8 +224,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     return CGSizeMake(self.view.bounds.size.width/2-15, collectionView.bounds.size.width);
 }
@@ -224,7 +238,8 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (IBAction)editPressed:(id)sender {
-    if(!isEditting){
+    
+    if (!isEditting){
         isEditting=YES;
         UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [button addTarget:self action:@selector(done:) forControlEvents:UIControlEventTouchUpInside];
@@ -235,20 +250,29 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.view addSubview:button];
         self.tabBarController.tabBar.hidden=YES;
     }
+    
     [self.collectionView reloadData];
 }
 
 -(IBAction)done:(id)sender{
+    
     isEditting = NO;
     UIButton *button = (UIButton*)sender;
     button.hidden=YES;
     [self.collectionView reloadData];
     self.tabBarController.tabBar.hidden=NO;
     
-    
 }
+
 - (IBAction)takePhoto:(id)sender {
+    
     [self performSegueWithIdentifier:@"showPhoto" sender:self];
+}
+
+- (IBAction)showRecsClicked:(id)sender {
+    
+    [self performSegueWithIdentifier:@"showRecs" sender:self];
+    
 }
 
 - (IBAction)logOut:(id)sender {
@@ -259,4 +283,5 @@ static NSString * const reuseIdentifier = @"Cell";
     [self presentViewController:loginNavigationController animated:NO completion:nil];
     
 }
+
 @end

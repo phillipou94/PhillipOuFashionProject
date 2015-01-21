@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>99300D6E-28FD-482D-AE32-402E7462BF7E</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Formwear</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8C4AC70D82A4CCDAF529CD39D4F39E2A0F1387AE</key>
+		<string>https://github.com/phillipou94/PhillipOuFashionProject</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Formwear.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8C4AC70D82A4CCDAF529CD39D4F39E2A0F1387AE</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/phillipou94/PhillipOuFashionProject</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>8C4AC70D82A4CCDAF529CD39D4F39E2A0F1387AE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8C4AC70D82A4CCDAF529CD39D4F39E2A0F1387AE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Cloth</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -12,7 +12,7 @@
 #import "FilterViewController.h"
 
 
-@interface ShoppingViewController : UICollectionViewController<startSearchDelegate,kDropDownListViewDelegate,removeBlurDelegate,UISearchBarDelegate, updateSearchDelegate>{
+@interface ShoppingViewController : UICollectionViewController<startSearchDelegate,kDropDownListViewDelegate,removeBlurDelegate,UISearchBarDelegate, updateSearchDelegate,ShowItemViewControllerLikeDelegate>{
     
     DropDownListView * Dropobj;
 }

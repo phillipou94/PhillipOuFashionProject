@@ -8,7 +8,9 @@
 
 #import "RecommendationViewController.h"
 #import "DropDownListView.h"
-
+#import "CoreDataSingleton.h"
+#import "ServerRequest.h"
+#import "SCLAlertView.h"
 @interface RecommendationViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -27,45 +29,50 @@
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    [self getCurrentUser];
+    self.searchBar.delegate=self;
+    self.tabBarController.tabBar.hidden=YES;
+    isShowingMenu=NO;
+    
+    categoryList=[@[@"Tops", @"Dresses", @"Jeans",@"Accessories", @"Jackets", @"Shorts"]mutableCopy];
+    
     self.title=@"Recommendation";
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor colorWithRed:0.70 green:0.70 blue:0.70 alpha:1.0] forKey:NSForegroundColorAttributeName];
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:0.25];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-    [NSDictionary dictionaryWithObjectsAndKeys:
-    [UIFont fontWithName:@"CaviarDreams" size:21], NSFontAttributeName, nil]];
-    categoryList=[@[@"Tops", @"Dresses", @"Jeans",@"Accessories", @"Jackets", @"Shorts"]mutableCopy];
-    self.searchBar.delegate=self;
-    self.profileImageView.image=self.profileImage;
-    self.arrayOfImages = [[NSMutableArray alloc]init];
-    isShowingMenu=NO;
+    [self.navigationController.navigationBar setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys: [UIFont fontWithName:@"CaviarDreams" size:21], NSFontAttributeName, nil]];
 
-    self.tabBarController.tabBar.hidden=YES;
+    self.profileImageView.image=self.profileImage;
     
+    self.arrayOfImages = [[NSMutableArray alloc]init];
+
     if(!self.searchTerm){
         self.searchTerm = @"http://api.shopstyle.com/action/apiSearch?pid=uid1361-25624519-1&format=json&fts=Tops&fl=p20&count=50"; //p50 is price filter
     }
     
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{
+        
         NSURL *url = [NSURL URLWithString:self.searchTerm];
         NSData *data=[NSData dataWithContentsOfURL:url];
         NSError *error=nil;
         id response=[NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error:&error];
         NSMutableDictionary *results = (NSMutableDictionary*) response;
         self.arrayOfRecs = [[results objectForKey:@"products"]mutableCopy];
-        //NSLog(@"%@",self.arrayOfRecs);
+        
         dispatch_async(dispatch_get_main_queue(), ^{
 
             [self setupHorizontalScrollView];
             self.scrollView.delegate=self;
         });
+        
     });
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
-    
     [self.view addGestureRecognizer:tap];
     
     self.originalCenter = self.view.center;
@@ -73,10 +80,17 @@
     
 }
 
+-(void)getCurrentUser {
+    
+    CoreDataSingleton *coreData = [CoreDataSingleton sharedManager];
+    NSString *userID=[coreData getCurrentUserID];
+    
+    ServerRequest *serverRequest = [ServerRequest sharedManager];
+    self.currentUser=[serverRequest getUserInfoFromServer:userID];
+}
 
 
--(void)keyboardDidShow:(NSNotification*)notification
-{
+- (void)keyboardDidShow:(NSNotification*)notification {
     
     NSDictionary* keyboardInfo = [notification userInfo];
     NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
@@ -177,103 +191,35 @@
 {
     if (self.searchBar.isFirstResponder){
         [self dismissKeyboard];
-    } else
-    {
+    } else {
         UIButton *button = (UIButton*) sender;
         NSDictionary *selectedItem = self.arrayOfRecs[button.tag];
-        NSLog(@"picture tapped:%@",selectedItem);
+        
         ShowItemViewController *newViewController = [[ShowItemViewController alloc] initWithNibName:@"ShowItemViewController" bundle:nil];
         newViewController.item = selectedItem;
         newViewController.imageURL = [selectedItem[@"images"][3] objectForKey:@"url"];
+        newViewController.fromViewController=@"RecommendationViewController";
+        newViewController.toUserImage = self.profileImage;
+        newViewController.fromUser=self.currentUser;
+        newViewController.toUser=self.selectedUser;
+        newViewController.animationDelegate=self;
+        
         [self presentViewController:newViewController animated:YES completion:nil];
     }
 
 }
 
+-(void)showConfirmationAnimation{
+    SCLAlertView *alert = [[SCLAlertView alloc] init];
+    
+    UIColor *color = [UIColor colorWithRed:245.0/255.0 green:120.0/255.0 blue:120.0/255.0 alpha:1.0];
+    [alert showCustom:self image:[UIImage imageNamed:@"whiteCheckMark"] color:color title:@"Recommendation Sent" subTitle:@"Thanks for Sharing!" closeButtonTitle:@"Done" duration:0.0f];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView
 {
     [self.scrollView setContentOffset: CGPointMake(self.scrollView.contentOffset.x, 0)];
-    // or if you are sure you wanna it always on top:
+    
 
 }
-
-- (IBAction)DropDownSingle:(id)sender {
-    [Dropobj fadeOut];
-    if(isShowingMenu){
-        isShowingMenu = NO;
-    }
-    else{
-        [self showPopUpWithTitle:@"  " withOption:categoryList xy:CGPointMake(self.menuButton.frame.origin.x, self.menuButton.frame.origin.y) size:CGSizeMake(160, 300) isMultiple:NO];
-        isShowingMenu=YES;
-    }
-}
-
-
-
--(CGSize)GetHeightDyanamic:(UILabel*)lbl
-{
-    NSRange range = NSMakeRange(0, [lbl.text length]);
-    CGSize constraint;
-    constraint= CGSizeMake(288 ,MAXFLOAT);
-    CGSize size;
-    
-    if (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)) {
-        NSDictionary *attributes = [lbl.attributedText attributesAtIndex:0 effectiveRange:&range];
-        CGSize boundingBox = [lbl.text boundingRectWithSize:constraint options: NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
-        
-        size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height));
-    }
-    else{
-        
-        size = [lbl.text sizeWithFont:[UIFont fontWithName:@"CaviarDreams" size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    }
-    return size;
-}
-
-
--(void)showPopUpWithTitle:(NSString*)popupTitle withOption:(NSArray*)arrOptions xy:(CGPoint)point size:(CGSize)size isMultiple:(BOOL)isMultiple{
-    
-    
-    Dropobj = [[DropDownListView alloc] initWithTitle:popupTitle options:arrOptions xy:point size:size isMultiple:isMultiple];
-    Dropobj.delegate = self;
-    Dropobj.searchDelegate=self;
-    [Dropobj showInView:self.view animated:YES];
-    [Dropobj SetBackGroundDropDwon_R:1.0 G:1.0 B:1.0 alpha:0.25];
-    
-}
-- (void)DropDownListView:(DropDownListView *)dropdownListView didSelectedIndex:(NSInteger)anIndex{
-    NSLog(@"clicked");
-    [self searchThisTerm:anIndex];
-}
--(void)searchThisTerm:(NSInteger)index{
-    isShowingMenu=NO;
-    
-    NSString *searchString= [categoryList objectAtIndex:index];
-    NSString *searchTerm =[searchString stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-    dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    //this will start the image loading in background
-    dispatch_async(concurrentQueue, ^{
-      
-        self.searchTerm = [NSString stringWithFormat:@"http://api.shopstyle.com/action/apiSearch?pid=uid1361-25624519-1&format=json&fts=%@&fl=p20&count=50",searchTerm ];
-        NSLog(@"searching:%@",self.searchTerm);
-        NSURL *url = [NSURL URLWithString:self.searchTerm];
-        NSData *data=[NSData dataWithContentsOfURL:url];
-        NSError *error=nil;
-        id response=[NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error:&error];
-        NSMutableDictionary *results = (NSMutableDictionary*) response;
-        self.arrayOfRecs = [results objectForKey:@"products"];
-        
-        //[self shuffleArray];
-        //this will set the image when loading is finished
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            // [self.collectionView reloadData];
-            [self setupHorizontalScrollView];
-            
-        });
-    });
-    
-    
-}
-
 @end

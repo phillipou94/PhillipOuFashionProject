@@ -35,42 +35,50 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     [[UITabBar appearance] setTintColor:[UIColor blackColor]];
     self.title=@"Shop";
+    
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor colorWithRed:0.70 green:0.70 blue:0.70 alpha:1.0] forKey:NSForegroundColorAttributeName];
    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.99 green:0.99 blue:0.99 alpha:0.25];
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
       [UIFont fontWithName:@"CaviarDreams" size:21],
       NSFontAttributeName, nil]];
+    
     isShowingMenu=NO;
     self.showHeader=NO;
+    
     categoryList=[@[@"Tops", @"Dresses", @"Jeans",@"Accessories", @"Jackets", @"Shorts"]mutableCopy];
- 
+    
     CoreDataSingleton *coreRequest = [CoreDataSingleton sharedManager];
     NSString *userID=[coreRequest getCurrentUserID];
     ServerRequest *serverRequest = [ServerRequest sharedManager];
     self.currentUser=[serverRequest getUserInfoFromServer:userID];
     self.currentUser.userID = userID;
+    
     [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"CaviarDreams" size:15.0f], NSFontAttributeName, nil] forState:UIControlStateNormal];
     UIBarButtonItem *searchButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchButton:)];
     UIBarButtonItem *filterButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(filterButtonPressed:)];
     NSArray *buttonArray = @[searchButton,filterButton];
+    
     self.navigationItem.rightBarButtonItems = buttonArray;
     
   
 }
--(void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
-    NSLog(@"called:%@", self.searchTerm);
+    
     if(!self.searchTerm){
         self.searchTerm = @"http://api.shopstyle.com/action/apiSearch?pid=uid1361-25624519-1&format=json&fts=Tops&fl=p20&count=250"; //p50 is price filter
     }
+    
     NSURL *url = [NSURL URLWithString:self.searchTerm];
     NSData *data=[NSData dataWithContentsOfURL:url];
     NSError *error=nil;
-    if(data)
-    {
+    
+    if (data) {
         id response=[NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error:&error];
         NSMutableDictionary *results = (NSMutableDictionary*) response;
         self.arrayOfResults = [[results objectForKey:@"products"]mutableCopy];
@@ -79,9 +87,10 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
-- (void)shuffleArray
-{
+- (void)shuffleArray {
+    
     NSUInteger count = [self.arrayOfResults count];
+    
     for (NSUInteger i = 0; i < count; ++i) {
         NSInteger remainingCount = count - i;
         NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t )remainingCount);
@@ -95,17 +104,17 @@ static NSString * const reuseIdentifier = @"Cell";
     self.searchTerm=nil;
 }
 
-- (CGSize)collectionViewContentSize
-{
-    NSLog(@"here");
+- (CGSize)collectionViewContentSize{
+
     NSInteger rowCount = [self.collectionView numberOfSections] / 2;
-    // make sure we count another row if one is only partially filled
+    
     if ([self.collectionView numberOfSections] % 2) rowCount++;
     
     CGFloat height = 10+ rowCount * 250 + (rowCount - 1) * 10 + 10;
     
     return CGSizeMake(self.collectionView.bounds.size.width, height);
 }
+
 #pragma mark <UICollectionViewDataSource>
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
@@ -135,6 +144,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_async(concurrentQueue, ^{
         NSMutableDictionary *item = self.arrayOfResults[indexPath.row];
@@ -178,8 +188,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
-- (NSIndexPath*)indexPathForEvent:(id)event
-{
+- (NSIndexPath*)indexPathForEvent:(id)event {
     NSSet *touches = [event allTouches];
     UITouch *touch = [touches anyObject];
     CGPoint currentTouchPosition = [touch locationInView:self.collectionView];
@@ -208,11 +217,14 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (IBAction)DropDownSingle:(id)sender {
+    
     [Dropobj fadeOut];
-    if(isShowingMenu){
+    
+    if(isShowingMenu)
+    {
         isShowingMenu = NO;
-    }
-    else{
+    } else
+    {
         [self showPopUpWithTitle:@"  " withOption:categoryList xy:CGPointMake(0, 15) size:CGSizeMake(160, 370) isMultiple:NO];
         isShowingMenu=YES;
     }
@@ -230,11 +242,11 @@ static NSString * const reuseIdentifier = @"Cell";
         CGSize boundingBox = [lbl.text boundingRectWithSize:constraint options: NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
         
         size = CGSizeMake(ceil(boundingBox.width), ceil(boundingBox.height));
-    }
-    else{
+    } else{
         
         size = [lbl.text sizeWithFont:[UIFont fontWithName:@"CaviarDreams" size:14] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
     }
+    
     return size;
 }
 
@@ -263,6 +275,7 @@ static NSString * const reuseIdentifier = @"Cell";
     dispatch_queue_t concurrentQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     //this will start the image loading in background
     dispatch_async(concurrentQueue, ^{
+        
         if(!self.categoryFilter){
             self.categoryFilter=@"";
         }
@@ -278,11 +291,10 @@ static NSString * const reuseIdentifier = @"Cell";
         id response=[NSJSONSerialization JSONObjectWithData:data options: NSJSONReadingMutableContainers error:&error];
         NSMutableDictionary *results = (NSMutableDictionary*) response;
         self.arrayOfResults = [results objectForKey:@"products"];
-        //[self shuffleArray];
+
         //this will set the image when loading is finished
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-           // [self.collectionView reloadData];
+
             [self.collectionView performBatchUpdates:^{
                 [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
             } completion:nil];
@@ -302,9 +314,10 @@ static NSString * const reuseIdentifier = @"Cell";
     
     newViewController.item = selectedItem;
     newViewController.imageURL = [selectedItem[@"images"][3] objectForKey:@"url"];
-    
+    newViewController.likeDelegate=self;
+    newViewController.fromViewController=@"ShoppingViewController";
+    newViewController.index=indexPath.row;
    
-    
     UIGraphicsBeginImageContext(self.view.bounds.size);
     [self.collectionView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -399,38 +412,13 @@ static NSString * const reuseIdentifier = @"Cell";
     
 }
 
+-(void)removeItemFromMainviewAtIndex:(NSInteger)index
+{
+    [self.arrayOfResults removeObjectAtIndex:index];
+         
+    [self.collectionView reloadData];
+         
+}
 
-
-
-#pragma mark <UICollectionViewDelegate>
-
-/*
- // Uncomment this method to specify if the specified item should be highlighted during tracking
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
- }
- */
-
-/*
- // Uncomment this method to specify if the specified item should be selected
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
- return YES;
- }
- */
-
-/*
- // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
- - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
- }
- 
- - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
- }
- 
- - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
- }
- */
 
 @end

@@ -136,8 +136,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //[self.searchDelegate searchThisTerm:indexPath.row];
+    [self.searchDelegate searchThisTerm:indexPath.row];
     if (self.delegate && [self.delegate respondsToSelector:@selector(DropDownListView:didSelectedIndex:)]) {
         [self.delegate DropDownListView:self didSelectedIndex:[indexPath row]];
     }

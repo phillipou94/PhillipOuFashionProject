@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "ShowItemViewController.h"
 
-@interface ProfileCollectionViewController : UICollectionViewController <removeBlurDelegate>
+@interface ProfileCollectionViewController : UICollectionViewController <removeBlurDelegate, UIGestureRecognizerDelegate>
 
 @end

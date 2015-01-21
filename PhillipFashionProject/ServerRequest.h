@@ -21,4 +21,6 @@
 -(NSArray*) getAllUsers;
 -(void)deleteItem:(NSString*)itemServerID;
 -(void)updateProfilePictureInfoForUser:(NSString*)serverID withPicture: (NSString*)pictureID;
+-(void)sendReferal:(NSDictionary*)item fromUser:(User*)fromUser toUser:(User*)toUser;
+-(NSArray*)getRecommendationsforUserID:(NSString*) userID;
 @end

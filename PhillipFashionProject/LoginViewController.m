@@ -20,37 +20,32 @@
 @implementation LoginViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     FBLoginView *loginView = [[FBLoginView alloc] init];
     loginView.center = self.view.center;
     loginView.delegate = self;
     loginView.readPermissions = @[@"public_profile", @"user_friends", @"email"];
+    
     [self.view addSubview:loginView];
     
-    // Do any additional setup after loading the view.
+  
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView
-                            user:(id<FBGraphUser>)user {
-    
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user {
     
     //instantiate Highlight Objects
     [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *FBuser, NSError *error) {
         if (error) {
             // Handle error
-        }
-        
-        else {
+        } else {
+            
             ServerRequest *serverRequest = [ServerRequest sharedManager];
             User *currentUser = [serverRequest getUserInfoFromServer:[FBuser objectID]];
+            
             if(currentUser.userID.length <1){
-                NSLog(@"new user");
+               
                 currentUser.username = [FBuser name];
                 currentUser.userID = [FBuser objectID];
                 currentUser.followerDictionary = [@{} mutableCopy];
@@ -70,9 +65,8 @@
                 singleton.recommendedList = [@[] mutableCopy];
                 singleton.points = 0;
                 
-            }
-            else{
-                NSLog(@"returning user");
+            } else {
+               
                 currentUser.username = [FBuser name];
                 currentUser.userID = [FBuser objectID];
                 CurrentUser *singleton = [CurrentUser sharedManager];
@@ -100,15 +94,6 @@
     CoreDataUser *user = [NSEntityDescription insertNewObjectForEntityForName:@"CoreDataUser" inManagedObjectContext:context];
     user.username = currentUser.username;
     user.userID=currentUser.userID;
-    /*user.followingDictionary=[NSDictionary dictionaryWithDictionary: currentUser.followingDictionary];
-   user.followerDictionary=[NSDictionary dictionaryWithDictionary:currentUser.followerDictionary];
-    //user.serverID=currentUser.serverID;
-    user.profilePictures = currentUser.profilePictures;
-    user.recommendedList = currentUser.recommendedList;
-    user.shoppingCart=currentUser.shoppingCart;
-    user.favoriteClothing=currentUser.favoriteClothing;
-    NSLog(@"saving to core data:%@",user.userID);
-    user.points=currentUser.points;*/
     
     NSError *error = nil;
     [context save:&error];
@@ -126,18 +111,5 @@
 }
 
 
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

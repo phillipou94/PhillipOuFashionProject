@@ -42,17 +42,6 @@ static NSString * const reuseIdentifier = @"Cell";
                                      action:nil];
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma mark <UICollectionViewDataSource>
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -78,6 +67,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     UILabel *nameLabel = (UILabel*)[cell viewWithTag:-1];
@@ -86,7 +76,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UIImageView *imageView = (UIImageView*)[cell viewWithTag:-2];
     UIButton *referButton = (UIButton*)[cell viewWithTag:-3];
     [referButton addTarget:self action:@selector(referTapped:withEvent:) forControlEvents:UIControlEventTouchUpInside];
-   // CoreDataSingleton *coreRequest = [CoreDataSingleton sharedManager];
+   
     NSString *userID=user[@"userID"];
     NSString *profilePictureID = user[@"profilePictureID"][0];
     
@@ -105,12 +95,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
         }];
     
-         
-        
-        //this will set the image when loading is finished
-            });
-
-
+    });
     
     cell.backgroundColor = [UIColor whiteColor];
     
@@ -118,6 +103,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
     NSDictionary *user = [self.allUsersArray objectAtIndex:indexPath.row];
     NSLog(@"selected:%@",user);
 }
@@ -139,8 +125,7 @@ static NSString * const reuseIdentifier = @"Cell";
     button.selected=YES;
     NSIndexPath *buttonIndexPath = [self indexPathForEvent:event];
     NSDictionary *userDic= [self.allUsersArray objectAtIndex:buttonIndexPath.row];
-    NSLog(@"selected:%@",userDic);
-    //User *user =
+   
     self.selectedUser = [[User alloc]init];
     self.selectedUser.username = userDic[@"username"];
     self.selectedUser.userID = userDic[@"userID"];
@@ -149,11 +134,13 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"Recommendation"]){
+    
+    if ([segue.identifier isEqualToString:@"Recommendation"]) {
+        
         RecommendationViewController *other = [segue destinationViewController];
         other.selectedUser = self.selectedUser;
         other.profileImage = self.selectedImage;
-        NSLog(@"passing:%@",self.selectedUser);
+       
     }
 }
 

@@ -89,7 +89,7 @@
                 user.userID = userID;
                 user.username = [dic objectForKey:@"username"];
                 user.profilePictures = [dic objectForKey:@"profilePictures"];
-                user.profilePictureID = [dic objectForKey:@"profilePictureID"];
+                user.profilePictureID = [dic objectForKey:@"profilePictureID"][0];
                 
             }
         }
@@ -288,6 +288,66 @@
     [dataTask resume];
 
     
+}
+
+-(void)sendReferal:(NSDictionary*)item fromUser:(User*)fromUser toUser:(User*)toUser
+{
+    NSMutableDictionary *object = [[NSMutableDictionary alloc]init];
+    object[@"fromUser"]=@{fromUser.userID:fromUser.username};
+    object[@"toUserID"]=toUser.userID;
+    object[@"toUsername"]=toUser.username;
+    object[@"accepted"]=@"NO";
+    object[@"product"]=item;
+    NSURL *url = [NSURL URLWithString: @"http://fashapp.herokuapp.com/referals"];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+    NSError *error = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:object options:kNilOptions error:&error];
+    if(!error){
+        NSURLSessionUploadTask *uploadTask = [urlSession uploadTaskWithRequest:request fromData:data completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSLog(@"save successful");
+            
+            
+        }];
+        [uploadTask resume];
+    
+    }
+}
+
+-(NSArray*)getRecommendationsforUserID:(NSString*) userID {
+    __block NSMutableArray *arrayOfItems= [[NSMutableArray alloc]init];
+    
+    //create semaphore that fetches user information from server and then returns user object
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    NSURL *url = [NSURL URLWithString: [NSString stringWithFormat:@"http://fashapp.herokuapp.com/referals/%@",userID ]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.0];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"GET"];
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:config delegate:self delegateQueue:nil];
+    
+    NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+        
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*) response;
+        NSInteger responseStatusCode = [httpResponse statusCode];
+        if(responseStatusCode==200 &&data){
+            NSArray *downloadedJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil]; //list of dictionaries
+            for(NSDictionary *dic in downloadedJSON){
+                [arrayOfItems addObject:dic];
+                
+            }
+        }
+        //signal you're done with fetching item information
+        dispatch_semaphore_signal(semaphore);
+    }];
+    [dataTask resume];
+    //wait for signal that completion block retrieving user info is finished before continuing
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    
+    return arrayOfItems;
 }
 
 

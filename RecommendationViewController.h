@@ -11,11 +11,12 @@
 #import "ShowItemViewController.h"
 #import "DropDownListView.h"
 
-@interface RecommendationViewController : UIViewController <UIScrollViewDelegate,kDropDownListViewDelegate, UISearchBarDelegate, startSearchDelegate>{
+@interface RecommendationViewController : UIViewController <UIScrollViewDelegate,kDropDownListViewDelegate, UISearchBarDelegate, startSearchDelegate,ShowItemViewAnimationDelegate>{
     DropDownListView * Dropobj;
 }
 @property (nonatomic, strong) UIImage *profileImage;
 @property (nonatomic, strong) User *selectedUser;
+@property (nonatomic, strong) User *currentUser;
 
 
 @end
